@@ -14,8 +14,10 @@ import { Logo } from "../Logo";
 import { Diver } from "../utils/Diver";
 import Link from "next/link";
 import { SideNavLogoutButton } from "./SideNavLogoutButton";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 const SideNav = () => {
+  const loginModal = useLoginModal();
   return (
     <div
       className="
@@ -62,7 +64,7 @@ const SideNav = () => {
           <SideNavLoginButton
             label="Sign In"
             icon={MdLogin}
-            onClick={() => {}}
+            onClick={() => loginModal.onOpen()}
           />
           <SideNavLogoutButton
             label="Logout"
