@@ -1,10 +1,10 @@
 import SideNav from "./components/sideNavbar/SideNav";
-import { LoginModal } from "./components/modals/LoginModal";
+import { ClientSide } from "./components/ClientSide";
 
 export default function Home() {
   return (
     <main className="">
-      <LoginModal isOpen={true} />
+      <ClientSide />
       <SideNav />
     </main>
   );

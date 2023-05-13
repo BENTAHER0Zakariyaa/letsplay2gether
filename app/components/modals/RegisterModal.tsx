@@ -1,23 +1,17 @@
 "use client";
 import React from "react";
+import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+
 import { Modal } from "./Modal";
 import { Diver } from "../utils/Diver";
 import { Input } from "../utils/Input";
-import { useForm } from "react-hook-form";
 import { Heading } from "../utils/Heading";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
+import { RadioButton } from "../utils/RadioButton";
 
-export const LoginModal = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
-
-  const loginModal = useLoginModal();
+export const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   const handleOnLogin = () => {};
 
@@ -30,9 +24,36 @@ export const LoginModal = () => {
         mt-[16px]
         "
     >
+      <div
+        className="
+            flex
+            space-x-[16px]
+        "
+      >
+        <Input placeholder="joo" type="firstName" label={"First Name"} />
+        <Input placeholder="foo" type="lastName" label={"Last Name"} />
+      </div>
+
       <Input placeholder="jooFoo@mail.com" type="email77" label={"Email"} />
       <Input placeholder="*******" type="password77" label={"Password"} />
-      <div></div>
+      <div
+        className="
+            flex
+            flex-col
+        "
+      >
+        <div className={`text-sm`}>Gender</div>
+        <div
+          className="
+            flex
+            space-x-[16px]
+            mt-[4px]
+        "
+        >
+          <RadioButton label="Male" name="gender" isChecked value="male" />
+          <RadioButton label="Female" name="gender" value="female" />
+        </div>
+      </div>
       <button
         type="button"
         value={`Login`}
@@ -45,14 +66,14 @@ export const LoginModal = () => {
       "
         onClick={handleOnLogin}
       >
-        Login
+        Create an account
       </button>
     </div>
   );
   const footerContent = (
     <>
       <p>
-        New here? {` `}
+        Already have an account? {` `}
         <span
           className={`
       text-primary
@@ -60,11 +81,11 @@ export const LoginModal = () => {
       cursor-pointer
     `}
           onClick={() => {
-            loginModal.onClose();
-            registerModal.onOpen();
+            registerModal.onClose();
+            loginModal.onOpen();
           }}
         >
-          Create an account
+          Log In
         </span>
       </p>
     </>
@@ -72,9 +93,9 @@ export const LoginModal = () => {
 
   return (
     <Modal
-      isOpen={loginModal.isOpen}
-      onClose={loginModal.onClose}
-      title="Login"
+      isOpen={registerModal.isOpen}
+      onClose={registerModal.onClose}
+      title="Register"
       body={bodyContent}
       footer={footerContent}
       disabled={false}

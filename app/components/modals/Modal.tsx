@@ -2,21 +2,35 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
+import { Diver } from "../utils/Diver";
 
-interface ModalProps {
-  title: string;
-  isOpen: boolean;
+interface IModalProps {
+  isOpen?: boolean;
+  disabled: boolean;
+  title?: string;
+  body?: React.ReactElement;
+  footer?: React.ReactElement;
+  actionLabel: string;
+  secondaryAction: string;
+  OnSecondaryAction: () => void;
+  onSubmit: () => void;
   onClose: () => void;
-  body: React.ReactElement;
 }
 
-export const Modal: React.FC<ModalProps> = ({
+export const Modal: React.FC<IModalProps> = ({
   isOpen,
-  onClose,
-  body,
+  disabled,
   title,
+  body,
+  footer,
+  actionLabel,
+  secondaryAction,
+  OnSecondaryAction,
+  onSubmit,
+  onClose,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
+
   const handleOnClose = useCallback(() => {
     setShowModal(false);
     setTimeout(() => {
@@ -53,11 +67,22 @@ export const Modal: React.FC<ModalProps> = ({
       focus:outline-none
       "
       >
+        <button
+          onClick={handleOnClose}
+          className={`
+        absolute
+        top-[16px]
+        right-[16px]
+        
+        `}
+        >
+          <MdClose size={32} />
+        </button>
         <div
           className="
-        relative
-        w-[438px]
-        "
+            relative
+            w-[438px]
+            "
         >
           <div
             className={`
@@ -72,7 +97,8 @@ export const Modal: React.FC<ModalProps> = ({
               className="
               translate
               bg-secondary
-              p-[32px]
+              py-[16px]
+              px-[32px]
               rounded-[12px]
               shadow-lg
               h-auto
@@ -85,26 +111,29 @@ export const Modal: React.FC<ModalProps> = ({
             >
               <div
                 className="
-              flex
-              justify-between
-              items-center
-              pb-[16px]
-              border-b
-              border-muted
+                text-[18px]
+                font-semibold
+                text-center
+                "
+              >
+                {title}
+              </div>
+              <hr className="h-px my-[16px] bg-muted border-0" />
+              <div
+                className="
+              relative 
+              flex-auto
               "
               >
-                <div
-                  className="
-                text-[20px]
-                font-bold"
-                >
-                  {title}
-                </div>
-                <button onClick={handleOnClose} className="p-[8px]">
-                  <MdClose size={28} />
-                </button>
+                {body}
               </div>
-              {body}
+              <div
+                className={`
+                mt-[16px]
+              `}
+              >
+                {footer}
+              </div>
             </div>
           </div>
         </div>
